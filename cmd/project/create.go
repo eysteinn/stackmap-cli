@@ -48,7 +48,7 @@ to quickly create a Cobra application.`,
 		var res map[string]interface{}
 
 		json.NewDecoder(resp.Body).Decode(&res)
-
+		fmt.Println(res)
 		fmt.Println(res["form"])
 		if err != nil {
 			log.Fatal(err)
