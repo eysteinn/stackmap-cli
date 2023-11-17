@@ -21,7 +21,9 @@ to quickly create a Cobra application.`,
 
 func MakeProjectCmd() *cobra.Command {
 	projectCmd.AddCommand(CreateCmd)
-	projectCmd.AddCommand(GetCmd)
+	projectCmd.AddCommand(ListCmd)
+	projectCmd.AddCommand(DeleteCmd)
+
 	return projectCmd
 }
 
