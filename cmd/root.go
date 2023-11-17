@@ -8,6 +8,7 @@ import (
 
 	"github.com/eysteinn/stackmap-cli/cmd/files"
 	"github.com/eysteinn/stackmap-cli/cmd/project"
+	"github.com/eysteinn/stackmap-cli/cmd/wms"
 	"github.com/eysteinn/stackmap-cli/pkg/global"
 	"github.com/spf13/cobra"
 )
@@ -48,7 +49,9 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&global.DefaultStackmapUrl, "api-url", "u", global.DefaultStackmapUrl, "Base URL for api")
 	rootCmd.PersistentFlags().BoolVarP(&global.Quiet, "quiet", "q", global.Quiet, "Keep quiet")
 	rootCmd.PersistentFlags().StringVarP(&global.Output, "output", "o", global.Output, "Output: table, json")
+	rootCmd.PersistentFlags().StringVar(&global.Project, "project", global.Project, "Selected project")
 
 	rootCmd.AddCommand(project.MakeProjectCmd())
 	rootCmd.AddCommand(files.MakeFilesCmd())
+	rootCmd.AddCommand(wms.MakeWMSCmd())
 }

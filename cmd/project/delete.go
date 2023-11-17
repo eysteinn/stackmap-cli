@@ -4,12 +4,14 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package project
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 
+	"github.com/eysteinn/stackmap-cli/pkg/apirequest"
 	"github.com/eysteinn/stackmap-cli/pkg/global"
 	"github.com/spf13/cobra"
 )
@@ -56,13 +58,28 @@ func DeleteProject(name string) error {
 	defer resp.Body.Close()
 
 	// read the response body
-	body, err := io.ReadAll(resp.Body)
+	/*body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}*/
+
+	respdata, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//fmt.Println(string(respdata))
+	apiresp := apirequest.ApiResponseSuccess{}
+	err = json.Unmarshal(respdata, &apiresp)
+	if err != nil {
+		log.Fatal(err)
 	}
 
+	err = apiresp.GetError()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Project deleted successfully.")
 	// print the response body
-	fmt.Println(string(body))
 	return nil
 	//project := args[0]
 	//http.PostForm("stackmap.clouds.is:8080")
